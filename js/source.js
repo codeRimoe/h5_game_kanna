@@ -1,4 +1,4 @@
-var kanna = new K(kimg,CBW/2,CBH/2,10,5,10,[0,0,0,0,0]);
+var kanna = new K(kimg,CBW/2,CBH/2,inithp,initspd,initboom,[0,0,0,0,0],0);
 var baka_pool = [];
 var boom_pool = [];
 for(i = 0; i < kanna.boom;i++)
@@ -20,6 +20,7 @@ sbgmain[0].onload = function main(){
             statectx.drawImage(stbg, 0, 0);
             for (var i = 0; i < kanna.hp; i++)
             statectx.drawImage(kimg[0], 88+i*41, 13, 32 ,32);
+            statectx.fillText(kanna.kill , 600, 51);
             for (var i = 0; i < kanna.st.length; i++)
                 statectx.fillText(kanna.st[i] , 690+30*i, 51);
             if(kanna.hp<=0)lose(mainctx,statectx);
@@ -28,7 +29,7 @@ sbgmain[0].onload = function main(){
     
     bakaTimer = setInterval(function () {
         if (ppp&&los&&mmm)
-            addM(baka_pool,ming,5,3,0);
+            addM(baka_pool,ming,inithp_M,initspd_M);
     }, bakacd );
     
     boomSlowTimer = setInterval(function () {

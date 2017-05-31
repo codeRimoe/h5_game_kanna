@@ -41,27 +41,30 @@ M.prototype.move = function (K,ctx) {
         if((this.x>=0)||(this.y>0)){
             this.x = -2333;
             this.y = -2333;
+            K.kill++;
         }
     }
     this.draw(ctx);
 };
 
-addM = function(baka_pool,image,hp,spd,type){
+addM = function(baka_pool,image,hp,spd){
     var side = Math.ceil((Math.random()*4));
     var birthX = (side%2)*Math.random()*CBW+(side==4)*CBW;
     var birthY = (!(side%2))*Math.random()*CBH+(side==3)*CBH;
     var i = 0;
+    side = Math.floor((Math.random()*4));
     for(;i < baka_pool.length;i++)
         if (baka_pool[i].hp<=0){
             baka_pool[i].hp=10;
             baka_pool[i].x=birthX;
             baka_pool[i].y=birthY;
             baka_pool[i].spd=spd;
-            baka_pool[i].type=type;
+            baka_pool[i].type=side;
+            baka_pool[i].img=image[side];
             break;
         }
     if(i>=baka_pool.length)
-        baka_pool.push(new M(image,birthX,birthY,hp,spd,type));
+        baka_pool.push(new M(image,birthX,birthY,hp,spd,side));
     return 1;
 }
 
@@ -73,7 +76,13 @@ moveM = function(K,ctx){
 bakaCheck = function(K,baka_pool){
     for(i = 0; i<baka_pool.length;i++)
         if((touch(K,baka_pool[i]))&&(K.st[0]==0)){
-            K.hp-=1;
-            K.st[0]=3;
+            switch(baka_pool[i].type){
+                case 0:if(K.st[1]==0)K.st[1]=5;break;
+                case 1:if(K.st[2]==0)K.st[2]=4;break;
+                case 2:if(K.st[3]==0)K.st[3]=2;break;
+                case 3:K.hp-=1;K.st[0]=3;break;
+            }
+            baka_pool[i].hp=0;
+            K.kill--;
         }
 }

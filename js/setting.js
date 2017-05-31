@@ -4,12 +4,14 @@ var mainctx = main.getContext("2d");
 var state = document.getElementById("stateCanvas");
 var statectx = state.getContext("2d");
 
-var CBH=600,CBW=1080
+var CBH=600,CBW=1080;
+var inithp=10,initspd=5,initboom=8;
+var inithp_M=5,initspd_M=3;
 var ttt=0,ppp=1,mmm=0,hhh=0,los=1;
 
 var reftime=12;
 var boomcd=200;
-var bakacd=5000;
+var bakacd=2000;
 var boomper=1;
 
 // Handle keyboard controls
@@ -39,7 +41,7 @@ pause = function(mainctx,statectx,ppp){
     if(ppp){
         mainctx.fillStyle="rgba(255,255,255,0.5)";
         mainctx.fillRect(0,0,CBW,CBH);
-        statectx.clearRect(0, 0, 1200, 100);
+        statectx.clearRect(0, 0, CBW, 100);
         statectx.drawImage(pbg[0], 0, 0);
         return 0;
     }
@@ -51,20 +53,20 @@ lose = function(mainctx,statectx){
     mainctx.fillStyle="rgba(0,0,0,0.5)";
     mainctx.fillRect(0,0,CBW,CBH);
     mainctx.drawImage(losepic, 0, 0);
-    statectx.clearRect(0, 0, 1200, 100);
+    statectx.clearRect(0, 0, CBW, 100);
     statectx.drawImage(pbg[1], 0, 0);
     los=0;
 }
 
 menu = function(mainctx,statectx){
     mainctx.drawImage(sbgmain[hhh], 0, 0);
-    statectx.clearRect(0, 0, 1200, 100);
+    statectx.clearRect(0, 0, CBW, 100);
     statectx.drawImage(sbgst[0], 0, 0);
 }
 
 reset = function(){
     ppp=1,mmm=0,hhh=0,los=1;
-    kanna = new K(kimg,CBW/2,CBH/2,10,5,10,[0,0,0,0,0]);
+    kanna = new K(kimg,CBW/2,CBH/2,inithp,initspd,initboom,[0,0,0,0,0],0);
     baka_pool = [];
     boom_pool = [];
     for(i = 0; i < kanna.boom;i++)

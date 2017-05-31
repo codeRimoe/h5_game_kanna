@@ -1,6 +1,5 @@
 //obj K
-
-var K = function (image,x,y,hp,spd,boom,st){
+var K = function (image,x,y,hp,spd,boom,st,kill){
     this.img = image[0];
     this.x = x;
     this.y = y;
@@ -8,6 +7,7 @@ var K = function (image,x,y,hp,spd,boom,st){
     this.spd = spd;
     this.boom = boom;
     this.st=st;
+    this.kill=0;
 };
 
 K.prototype.draw = function (ctx) {
@@ -15,6 +15,11 @@ K.prototype.draw = function (ctx) {
 };
 
 K.prototype.move = function (ctx) {
+       //stop [ud,spdown,rew,dizz,]
+    this.spd = ( initspd - 4 * (this.st[1]!=0) ) * (this.st[1]==0)
+    if(this.st[1]) this.spd = initspd - 4 ;
+    if(this.st[2]) this.spd *= -1 ;
+    if(this.st[3]) this.spd = 0 ;
     this.y += (38 in keysDown)*(-this.spd)+(40 in keysDown)*this.spd;
     this.x += (37 in keysDown)*(-this.spd)+(39 in keysDown)*this.spd;
     if(this.y<=48)this.y=48;
