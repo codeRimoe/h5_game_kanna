@@ -10,7 +10,7 @@ var M = function (image,x,y,hp,spd,type){
 };
 
 M.prototype.draw = function (ctx) {
-    ctx.drawImage(this.img, this.x-32, this.y-32, 32 ,32);
+    ctx.drawImage(this.img, this.x-16, this.y-16, 12+4*this.hp ,12+4*this.hp);
 };
 
 M.prototype.move = function (K,ctx) {
@@ -41,7 +41,6 @@ M.prototype.move = function (K,ctx) {
         if((this.x>=0)||(this.y>0)){
             this.x = -2333;
             this.y = -2333;
-            K.kill++;
         }
     }
     this.draw(ctx);
@@ -55,7 +54,7 @@ addM = function(baka_pool,image,hp,spd){
     side = Math.floor((Math.random()*4));
     for(;i < baka_pool.length;i++)
         if (baka_pool[i].hp<=0){
-            baka_pool[i].hp=10;
+            baka_pool[i].hp=inithp_M+Math.floor(4*Math.random())-2;
             baka_pool[i].x=birthX;
             baka_pool[i].y=birthY;
             baka_pool[i].spd=spd;
@@ -75,7 +74,7 @@ moveM = function(K,ctx){
 
 bakaCheck = function(K,baka_pool){
     for(i = 0; i<baka_pool.length;i++)
-        if((touch(K,baka_pool[i]))&&(K.st[0]==0)){
+        if((touch(K,baka_pool[i],22+2*baka_pool[i].hp))&&(K.st[0]==0)){
             switch(baka_pool[i].type){
                 case 0:if(K.st[1]==0)K.st[1]=5;break;
                 case 1:if(K.st[2]==0)K.st[2]=4;break;
@@ -83,6 +82,5 @@ bakaCheck = function(K,baka_pool){
                 case 3:K.hp-=1;K.st[0]=3;break;
             }
             baka_pool[i].hp=0;
-            K.kill--;
         }
 }

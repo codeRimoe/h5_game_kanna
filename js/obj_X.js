@@ -2,22 +2,32 @@ var X = function (image,hp,st){
     this.img = image;
     this.hp = hp;
     this.st=st;
+    this.x=CBW/2;
+    this.y=CBH/2;
 };
 
-X.prototype.draw = function (i,ctx) {
-    ctx.drawImage(this.img[i], CBW/2-32, CBH/2-32, 32 ,32);
+X.prototype.draw = function (ctx) {
+    var i=this.st>0?1:0;
+    ctx.drawImage(this.img[i], CBW/2-16, CBH/2-16, 32 ,32);
 };
 
-X.prototype.check = function(K,baka_pool){
+Xcheck = function(X,K,baka_pool){
+    if((!X.st)&&(touch(X,K,64))){
+        X.st=20;
+        X.hp--;
+    }
     for(i = 0; i<baka_pool.length;i++)
-        if((touch(K,baka_pool[i]))&&(K.st[0]==0)){
-            switch(baka_pool[i].type){
-                case 0:if(K.st[1]==0)K.st[1]=5;break;
-                case 1:if(K.st[2]==0)K.st[2]=4;break;
-                case 2:if(K.st[3]==0)K.st[3]=2;break;
-                case 3:K.hp-=1;K.st[0]=3;break;
-            }
+        if((!X.st)&&(touch(X,baka_pool[i],54+2*baka_pool[i].hp))){
+            X.st=20;
+            X.hp--;
             baka_pool[i].hp=0;
-            K.kill--;
+            break;
         }
+}
+
+X.prototype.stCheck = function(){
+    if(this.st>0)
+        this.st-=1;
+    else
+        this.st=0;
 }
