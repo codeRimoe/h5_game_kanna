@@ -11,6 +11,7 @@ sbgmain[0].onload = function main(){
     mainctx.drawImage(sbgmain[0], 0, 0);
     statectx.drawImage(sbgst[0], 0, 0);
     refTimer = setInterval(function () {
+        resize();
         if (ppp&&los&&mmm){
             mainctx.clearRect(0, 0, 1200, 675);
             mainctx.drawImage(bg, 0, 0);

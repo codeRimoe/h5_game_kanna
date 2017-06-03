@@ -4,6 +4,22 @@ var mainctx = main.getContext("2d");
 var state = document.getElementById("stateCanvas");
 var statectx = state.getContext("2d");
 
+var con=document.getElementById("con");
+
+resize = function () {
+    var scale=Math.min(document.body.clientWidth/CBW,window.innerHeight/CBH-0.25);
+    con.style.zoom=scale;
+    if(!device.mobile()){
+        switch(window.orientation) {
+            case 0:screentype=0;break;//down
+            case 180:screentype=2;break;//up
+            case -90:screentype=1;break;//right Landscape: turned 90 degrees counter-clockwise
+            case 90:screentype=3;break;//left
+        }
+    }
+}
+
+
 var CBH=600,CBW=1080,bexptime=150,maxwt=300,wk=50;
 var inithp=10,initspd=5,initboom=8,initzz=5;
 var inithp_M=5,initspd_M=3;
@@ -28,6 +44,48 @@ addEventListener("keyup", function (e) {
                  case 72:if(!mmm){hhh++,hhh%=2,menu(mainctx,statectx);}break;
                  }
                  }, false);
+
+var screentype=0;
+if(device.mobile()){
+    window.addEventListener("deviceorientation", function(event) {
+                            x = (event.beta+180)%360-180;  // In degree in the range [-180,180]
+                            var y = (event.gamma+90)%180-90; // In degree in the range [-90,90]
+                            if(x>5)
+                                keysDown[37+(3+screentype)%4] = true;
+                            else if(x<-5)
+                                keysDown[37+(1+screentype)%4] = true;
+                            else if(x<5&&x>-5){
+                                if(keysDown[37+(1+screentype)%4])delete keysDown[37+(1+screentype)%4];
+                                if(keysDown[37+(3+screentype)%4])delete keysDown[37+(3+screentype)%4];
+                            }
+                            
+                            if(y>5)
+                                keysDown[37+(2+screentype)%4] = true;
+                            else if(y<-5)
+                                keysDown[37+(0+screentype)%4] = true;
+                            else if(y<5&&y>-5){
+                                if(keysDown[37+(2+screentype)%4])delete keysDown[37+(2+screentype)%4];
+                                if(keysDown[37+(0+screentype)%4])delete keysDown[37+(0+screentype)%4];
+                            }
+                            }, true);
+    
+    c1.onclick = function(){
+        if(!mmm)
+            mmm=1;
+        if((ppp&&los&&mmm)&&(boomper--==1))
+            kanna.setB(boom_pool);
+        if((!ppp)||(!los))
+            reset(),menu(mainctx,statectx);
+    };
+    
+    c2.onclick = function(){
+        if(!mmm)
+            hhh++,hhh%=2,menu(mainctx,statectx);
+        if(mmm&&los)
+            ppp=pause(mainctx,statectx,ppp);
+    };
+
+}
 
 touch = function (A,B,dis){
     var dx = Math.abs(A.x-B.x);
@@ -78,51 +136,3 @@ reset = function(){
     for(i = 0; i < kanna.boom;i++)
         boom_pool.push(new B(bing,-233,-233,0,0));
 }
-
-var kimg = [new Image(),new Image()];
-var ming = [new Image(),new Image(),new Image(),new Image()];
-var bing = [new Image(),new Image(),new Image(),new Image(),new Image(),new Image()];
-var ling = [new Image(),new Image()];
-var stpic =[new Image(),new Image(),new Image(),new Image(),new Image(),new Image(),new Image(),new Image()];
-var losepic=new Image();
-var winpic=new Image();
-var pausepic=new Image();
-var sbgmain = [new Image(),new Image()];
-var sbgst = [new Image(),new Image()];
-var pbg=[new Image(),new Image()];
-var stbg = new Image();
-var bg = new Image();
-
-kimg[0].src = "images/figure/kn.png";
-kimg[1].src = "images/figure/kn2.png";
-ling[0].src = "images/figure/xl.png";
-ling[1].src = "images/figure/xl2.png";
-ming[0].src = "images/figure/tr1.png";
-ming[1].src = "images/figure/tr2.png";
-ming[2].src = "images/figure/tr3.png";
-ming[3].src = "images/figure/tr4.png";
-bing[0].src = "images/boom/boom1.png";
-bing[1].src = "images/boom/boom2.png";
-bing[2].src = "images/boom/boom3.png";
-bing[3].src = "images/boom/boom4.png";
-bing[4].src = "images/boom/boom5.png";
-bing[5].src = "images/boom/boom6.png";
-stpic[0].src = "images/state/udoff.png";
-stpic[1].src = "images/state/sdoff.png";
-stpic[2].src = "images/state/disoff.png";
-stpic[3].src = "images/state/dzoff.png";
-stpic[4].src = "images/state/udon.png";
-stpic[5].src = "images/state/sdon.png";
-stpic[6].src = "images/state/dison.png";
-stpic[7].src = "images/state/dzon.png";
-losepic.src = "images/lose.png";
-winpic.src = "images/win.png";
-pausepic.src = "images/pause.png";
-stbg.src = "images/bg.png";
-pbg[0].src = "images/pbg.png";
-pbg[1].src = "images/ebg.png";
-sbgmain[0].src = "images/menu.png";
-sbgmain[1].src = "images/help.png";
-sbgst[0].src = "images/sbg.png";
-sbgst[1].src = "images/hbg.png";
-bg.src = "images/background.png";
