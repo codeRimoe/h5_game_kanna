@@ -9,7 +9,7 @@ var con=document.getElementById("con");
 resize = function () {
     var scale=Math.min(document.body.clientWidth/CBW,window.innerHeight/CBH-0.25);
     con.style.zoom=scale;
-    if(!device.mobile()){
+    if(device.mobile()){
         switch(window.orientation) {
             case 0:screentype=0;break;//down
             case 180:screentype=2;break;//up
@@ -48,7 +48,7 @@ addEventListener("keyup", function (e) {
 var screentype=0;
 if(device.mobile()){
     window.addEventListener("deviceorientation", function(event) {
-                            x = (event.beta+180)%360-180;  // In degree in the range [-180,180]
+                            var x = (event.beta+180)%360-180;  // In degree in the range [-180,180]
                             var y = (event.gamma+90)%180-90; // In degree in the range [-90,90]
                             if(x>5)
                                 keysDown[37+(3+screentype)%4] = true;

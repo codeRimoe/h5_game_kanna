@@ -16,8 +16,8 @@ sbgmain[0].onload = function main(){
             mainctx.clearRect(0, 0, 1200, 675);
             mainctx.drawImage(bg, 0, 0);
             kobayashi.draw(mainctx);
-            boomCheck(kanna,boom_pool,baka_pool,mainctx);
             bakaCheck(kanna,baka_pool);
+            boomCheck(kanna,boom_pool,baka_pool,mainctx);
             Xcheck(kobayashi,kanna,baka_pool);
             if((32 in keysDown)&&(boomper--==1))
                 kanna.setB(boom_pool);

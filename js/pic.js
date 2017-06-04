@@ -35,14 +35,29 @@ stpic[4].src = "images/state/udon.png";
 stpic[5].src = "images/state/sdon.png";
 stpic[6].src = "images/state/dison.png";
 stpic[7].src = "images/state/dzon.png";
-losepic.src = "images/lose.png";
-winpic.src = "images/win.png";
-pausepic.src = "images/pause.png";
+
+if(device.mobile()){
+    losepic.src = "images/mobile/lose.png";
+    winpic.src = "images/mobile/win.png";
+    pausepic.src = "images/mobile/ppp.png";
+    pbg[0].src = "images/mobile/pbg.png";
+    pbg[1].src = "images/mobile/ebg.png";
+    sbgmain[0].src = "images/mobile/menu.png";
+    sbgmain[1].src = "images/mobile/help.png";
+    sbgst[0].src = "images/mobile/sbg.png";
+    sbgst[1].src = "images/mobile/hbg.png";
+}
+else {
+    losepic.src = "images/pc/lose.png";
+    winpic.src = "images/pc/win.png";
+    pausepic.src = "images/pc/ppp.png";
+    pbg[0].src = "images/pc/pbg.png";
+    pbg[1].src = "images/pc/ebg.png";
+    sbgmain[0].src = "images/pc/menu.png";
+    sbgmain[1].src = "images/pc/help.png";
+    sbgst[0].src = "images/pc/sbg.png";
+    sbgst[1].src = "images/pc/hbg.png";
+}
+
 stbg.src = "images/bg.png";
-pbg[0].src = "images/pbg.png";
-pbg[1].src = "images/ebg.png";
-sbgmain[0].src = "images/menu.png";
-sbgmain[1].src = "images/help.png";
-sbgst[0].src = "images/sbg.png";
-sbgst[1].src = "images/hbg.png";
 bg.src = "images/background.png";
