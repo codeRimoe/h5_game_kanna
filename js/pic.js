@@ -1,4 +1,10 @@
+// Kanna and Tohru - Rimoe's Game
+// Author: Yue H.W. Luo 
+// Mail: yue.rimoe@gmail.com 
+// License : http://www.apache.org/licenses/LICENSE-2.0 
+// More detial: http://blog.rimoe.ml/2017/06/09/post01/ 
 
+//pic
 var kimg = [new Image(),new Image()];
 var ming = [new Image(),new Image(),new Image(),new Image()];
 var bing = [new Image(),new Image(),new Image(),new Image(),new Image(),new Image()];
