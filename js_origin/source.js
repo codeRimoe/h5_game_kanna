@@ -1,3 +1,11 @@
+// Kanna and Tohru - Rimoe's Game
+// Author: Yue H.W. Luo 
+// Mail: yue.rimoe@gmail.com 
+// License : http://www.apache.org/licenses/LICENSE-2.0 
+// More detial: http://blog.rimoe.ml/2017/06/09/post01/ 
+
+// source
+
 var kanna = new K(kimg,CBW/2-128,CBH/2-128,inithp,initspd,initboom,[0,0,0,0],0);
 var kobayashi = new X(ling,5,0);
 var baka_pool = [];
